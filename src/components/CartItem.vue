@@ -1,15 +1,15 @@
 <template>
-    <div class="cart-row">
-        <div class="cart-item cart-column">
-            <input class="checkbox" type="checkbox" @click="updateCart()">
-            <span class="cart-item-title">{{item.name}}</span>
-        </div>
-        <span class="cart-price cart-column">{{item.price}}}</span>
-        <div class="cart-quantity cart-column">
-            <input class="cart-quantity-input" type="number" value={{item.prouct.num}}>
-            <button class="btn btn-danger" type="button">REMOVE</button>
-        </div>
-    </div>  
+    <tr>
+        <td><router-link :to="item.product.get_absolute_url">{{ item.product.name }}</router-link></td>
+        <td>${{ item.product.price }}</td>
+        <td>
+            {{ item.quantity }}
+            <a @click="decrementQuantity(item)">-</a>
+            <a @click="incrementQuantity(item)">+</a>
+        </td>
+        <td>${{ getItemTotal(item).toFixed(2) }}</td>
+        <td><button class="delete" @click="removeFromCart(item)"></button></td>
+    </tr> 
 
 </template>
 
@@ -32,7 +32,7 @@ export default {
     methods: {
         getItemTotal(item) {
             return item.quantity * item.prouct.price
-            this.updateCart()
+            /* this.updateCart() */
         },
         incrementQuantity(item) {
             item.quantity++

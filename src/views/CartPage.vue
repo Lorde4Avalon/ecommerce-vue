@@ -1,27 +1,44 @@
 <template>
-    <div class="page-cart">
-        <section class="container content-section">
-            <h2 class="section-header">CART</h2>
-            <div class="cart-row">
-                <span class="cart-item cart-header cart-column">ITEM</span>
-                <span class="cart-price cart-header cart-column">PRICE</span>
-                <span class="cart-quantity cart-header cart-column">QUANTITY</span>
+     <div class="page-cart">
+        <div class="columns is-multiline">
+            <div class="column is-12">
+                <h1 class="title">Cart</h1>
             </div>
-            <div class="cart-items">
-                
-                
+
+            <div class="column is-12 box">
+                <!-- <table class="table is-fullwidth" v-if="cartTotalLength">
+                    <thead>
+                        <tr>
+                            <th>Product</th>
+                            <th>Price</th>
+                            <th>Quantity</th>
+                            <th>Total</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <CartItem
+                            v-for="item in cart.items"
+                            v-bind:key="item.product.id"
+                            v-bind:initialItem="item"
+                            v-on:removeFromCart="removeFromCart" />
+                    </tbody>
+                </table>
+
+                <p v-else>You don't have any products in your cart...</p> -->
             </div>
-            <div class="cart-total">
-                <button class="btn btn-select" type="button" id="checkall">Select All</button>
-                <button class="btn btn-deleteall" type="button" id="deleteall">Delete All</button>
-                <strong class="cart-total-title">Total</strong>
-                <span class="cart-total-price" id="total-amount">$0</span>
-            </div>
-            <div class="cart-footer">
-                <button class="btn btn-primary btn-purchase" type="button">PURCHASE</button>
-            </div>
-            
-        </section>
+
+            <!-- <div class="column is-12 box">
+                <h2 class="subtitle">Summary</h2>
+
+                <strong>${{ cartTotalPrice.toFixed(2) }}</strong>, {{ cartTotalLength }} items
+
+                <hr>
+
+                <router-link to="/cart/checkout" class="button is-dark">Proceed to checkout</router-link>
+            </div> -->
+        </div>
     </div>
 </template>
 
@@ -31,13 +48,13 @@
 
 
 <script>
-// import axios from 'axios'
-// import CartItem from './CartItem.vue'
+/* import axios from 'axios' */
+/* import CartItem from '../components/CartItem.vue' */
 
 export default {
     name: 'CartPage',
     components: {
-        // CartItem
+        /* CartItem */
     },
     data() {
         return {
@@ -46,6 +63,9 @@ export default {
             }
         }
     },
+    computed: {
+        
+    }
 
 }
 </script>
