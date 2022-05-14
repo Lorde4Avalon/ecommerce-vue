@@ -46,7 +46,7 @@
               
               <router-link to="/cart" class="button is-success">
                 <span class="icon"><i class="fas fa-shopping-cart"></i></span>
-                <span>Cart ({{ cartTotalLength }})</span>
+                <span>Cart ({{ cartTotalLen }})</span>
               </router-link>
             </div>
           </div>
@@ -67,7 +67,7 @@
 </template>
 
 <script>
-// import axios from 'axios'
+import axios from 'axios'
 
 
 export default {
@@ -79,6 +79,25 @@ export default {
       }
     }
   },
+  methods: {
+     async getCartItem() {
+            await axios
+            .get("/carts")
+            .then(response => {
+                this.cart.items = response.data
+            })
+            .catch(error => {
+                console.log(error);
+            })
+        }
+  },
+  computed: {
+    cartTotalLen() {
+          return this.cart.items.reduce((acc, curVal) => {
+              return acc += curVal.quantity
+          }, 0)  
+        }
+  }
 }
 </script>
 

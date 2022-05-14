@@ -1,6 +1,18 @@
 {
-    "carts" : [  
-        {"cartId":"1", "name":"Acer V3-572G", "price":"400", "quantity":"2"},
-        {"cartId":"2", "name":"Acer V3-572G", "price":"300", "quantity":"1"}
+    "carts": [
+        {
+            "cartId": "1",
+            "name": "Acer V3-572G",
+            "price": "400",
+            "quantity": "2",
+            "pthumbnail": "https://img14.360buyimg.com/n0/jfs/t1/220307/10/18082/227774/627b3d19Eedc7a09e/7f2c72e20f8e9e77.jpg.avif"
+        },
+        {
+            "cartId": "2",
+            "name": "Acer V5-1024G",
+            "price": "300",
+            "quantity": "1",
+            "pthumbnail": "https://img14.360buyimg.com/n0/jfs/t1/170557/20/11858/106501/6049e351Eecdbaa37/ac65c32972a40ef3.jpg.avif"
+        }
     ]
 }

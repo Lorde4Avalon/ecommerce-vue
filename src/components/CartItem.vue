@@ -1,6 +1,7 @@
 <template>
     <tr>
         <td><input class="check" type="checkbox" @click="checkItem()"></td>
+        <td><img :src=item.pthumbnail width="64"></td>
         <td>{{ item.name }}</td>
         <td>${{ item.price }}</td>
         <td>
