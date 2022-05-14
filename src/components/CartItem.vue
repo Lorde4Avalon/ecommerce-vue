@@ -1,14 +1,15 @@
 <template>
     <tr>
-        <td><router-link :to="item.product.get_absolute_url">{{ item.product.name }}</router-link></td>
-        <td>${{ item.product.price }}</td>
+        
+        <td>{{ item.name }}</td>
+        <td>${{ item.price }}</td>
         <td>
-            {{ item.quantity }}
             <a @click="decrementQuantity(item)">-</a>
+            {{ item.quantity }}
             <a @click="incrementQuantity(item)">+</a>
         </td>
         <td>${{ getItemTotal(item).toFixed(2) }}</td>
-        <td><button class="delete" @click="removeFromCart(item)"></button></td>
+        <td><button class="delete" @click="removeItem(item)"></button></td>
     </tr> 
 
 </template>
@@ -31,8 +32,8 @@ export default {
     },
     methods: {
         getItemTotal(item) {
-            return item.quantity * item.prouct.price
-            /* this.updateCart() */
+            this.updateCart()
+            return item.quantity * item.price
         },
         incrementQuantity(item) {
             item.quantity++
@@ -40,8 +41,8 @@ export default {
         },
         decrementQuantity(item) {
             item.quantity--
-            if (item.quantity === 0) {
-                this.removeItem(item)
+            if (item.quantity == 0) {
+                this.$emit('removeItem', item)
             }
             this.updateCart()
         },
@@ -49,7 +50,7 @@ export default {
             localStorage.setItem('cart', JSON.stringify(this.cart))
         },
         removeItem(item) {
-            this.cart.items.splice(this.cart.items.indexOf(item), 1)
+            this.$emit('removeItem', item)
             this.updateCart()
         }, 
     },

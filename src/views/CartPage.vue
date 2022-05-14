@@ -9,8 +9,9 @@
                 <table class="table is-fullwidth" v-if="cartTotalLen">
                     <CartItem 
                     v-for="item in cart.items"
-                    v-bind:key="item.product.cartId"
-                    v-bind:initialItem="item.product"/>
+                    v-bind:key="item.cartId"
+                    v-bind:initialItem="item"
+                    v-on:removeItem="removeItem"/>
                 </table>
 
                 <p v-else>You don't have any in Cart. Try to get something new</p>
@@ -34,8 +35,7 @@
 </style>
 
 
-<script>
-// import axios from 'axios' 
+<script> 
 import axios from 'axios'
 import CartItem from '../components/CartItem.vue'
 
@@ -56,8 +56,15 @@ export default {
         document.title = "Cart | 5YouWant"
     },
     methods: {
-        getCartItem() {
-            axios
+        removeItem(item) {
+            this.cart.items = this.cart.items.filter(i => i.cartId !== item.cartId)
+        },
+        updateTotalPrice() {
+            
+        },
+
+        async getCartItem() {
+            await axios
             .get("/carts")
             .then(response => {
                 this.cart.items = response.data
@@ -75,7 +82,7 @@ export default {
         },
         cartTotalPrice() {
             return this.cart.items.reduce((acc, curVal) => {
-                return acc += curVal.product.price * curVal.quantity
+                return acc += curVal.price * curVal.quantity
             },0)
         }
     }

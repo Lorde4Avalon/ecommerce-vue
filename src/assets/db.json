@@ -1,5 +1,6 @@
 {
-    "carts" : [
-        {"cartId":"1"}
+    "carts" : [  
+        {"cartId":"1", "name":"Acer V3-572G", "price":"400", "quantity":"2"},
+        {"cartId":"2", "name":"Acer V3-572G", "price":"300", "quantity":"1"}
     ]
 }
