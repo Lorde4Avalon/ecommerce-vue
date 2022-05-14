@@ -11,7 +11,8 @@
                     v-for="item in cart.items"
                     v-bind:key="item.cartId"
                     v-bind:initialItem="item"
-                    v-on:removeItem="removeItem"/>
+                    v-on:removeItem="removeItem"
+                    v-on:updateTotalPrice="updateTotalPrice"/>
                 </table>
 
                 <p v-else>You don't have any in Cart. Try to get something new</p>
@@ -48,7 +49,8 @@ export default {
         return {
             cart: {
                 items: []
-            }
+            },
+            cartTotalPrice: 0
         }
     },
     mounted() {
@@ -60,7 +62,12 @@ export default {
             this.cart.items = this.cart.items.filter(i => i.cartId !== item.cartId)
         },
         updateTotalPrice() {
-            
+            this.cartTotalPrice = 0
+            this.cart.items.forEach(item => {
+                if (item.check) {
+                    this.cartTotalPrice += item.price * item.quantity
+                }
+            });
         },
 
         async getCartItem() {
@@ -80,11 +87,11 @@ export default {
               return acc += curVal.quantity
           }, 0)  
         },
-        cartTotalPrice() {
-            return this.cart.items.reduce((acc, curVal) => {
-                return acc += curVal.price * curVal.quantity
-            },0)
-        }
+        // cartTotalPrice() {
+        //     return this.cart.items.reduce((acc, curVal) => {
+        //         return acc += curVal.price * curVal.quantity
+        //     },0)
+        // }
     }
 
 }

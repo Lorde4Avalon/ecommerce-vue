@@ -1,6 +1,6 @@
 <template>
     <tr>
-        
+        <td><input class="check" type="checkbox" @click="checkItem()"></td>
         <td>{{ item.name }}</td>
         <td>${{ item.price }}</td>
         <td>
@@ -48,11 +48,16 @@ export default {
         },
         updateCart() {
             localStorage.setItem('cart', JSON.stringify(this.cart))
+            this.$emit('updateTotalPrice')
         },
         removeItem(item) {
             this.$emit('removeItem', item)
             this.updateCart()
-        }, 
+        },
+        checkItem() {
+            this.item["check"] = !this.item["check"]
+            this.$emit('updateTotalPrice')
+        }
     },
 }
 </script>
