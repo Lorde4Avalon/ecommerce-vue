@@ -6,25 +6,37 @@
             </div>
 
             <div class="column is-12 box">
-                <table class="table is-fullwidth">
+                <table class="table is-fullwidth" v-if="cartTotalLen">
                     <CartItem 
-                    v-if="item in cart.items"
+                    v-for="item in cart.items"
                     v-bind:key="item.product.cartId"
                     v-bind:initialItem="item.product"/>
                 </table>
+
+                <p v-else>You don't have any in Cart. Try to get something new</p>
             </div>
 
+            <div class="column is-12 box">
+                <h2 class="subtitle">Summary</h2>
+
+                Total: <strong>${{ cartTotalPrice.toFixed(2) }}</strong>
+
+                <hr>
+
+                <router-link to="/cart/checkout" class="button is-dark">Purchase</router-link>
+            </div>
         </div>
     </div>
 </template>
 
 <style>
-@import "../assets/style.CSS";
+/* @import "../assets/style.CSS"; */
 </style>
 
 
 <script>
-/* import axios from 'axios' */
+// import axios from 'axios' 
+import axios from 'axios'
 import CartItem from '../components/CartItem.vue'
 
 export default {
@@ -39,8 +51,33 @@ export default {
             }
         }
     },
+    mounted() {
+        this.getCartItem()
+        document.title = "Cart | 5YouWant"
+    },
+    methods: {
+        getCartItem() {
+            axios
+            .get("/carts")
+            .then(response => {
+                this.cart.items = response.data
+            })
+            .catch(error => {
+                console.log(error);
+            })
+        }
+    },
     computed: {
-        
+        cartTotalLen() {
+          return this.cart.items.reduce((acc, curVal) => {
+              return acc += curVal.quantity
+          }, 0)  
+        },
+        cartTotalPrice() {
+            return this.cart.items.reduce((acc, curVal) => {
+                return acc += curVal.product.price * curVal.quantity
+            },0)
+        }
     }
 
 }
