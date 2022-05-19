@@ -5,9 +5,9 @@
         <td>{{ item.name }}</td>
         <td>${{ item.price }}</td>
         <td>
-            <a @click="decrementQuantity(item)">-</a>
+            <button @click="decrementQuantity(item)" style="padding: 0 8px">-</button>
             {{ item.quantity }}
-            <a @click="incrementQuantity(item)">+</a>
+            <button @click="incrementQuantity(item)" style="padding: 0 8px">+</button>
         </td>
         <td>${{ getItemTotal(item).toFixed(2) }}</td>
         <td><button class="delete" @click="removeItem(item)"></button></td>

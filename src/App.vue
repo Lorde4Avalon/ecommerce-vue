@@ -2,7 +2,10 @@
   <div id="wrapper">
     <nav class="navbar is-dark">
       <div class="navbar-brand">
-         <router-link to="/" class="navbar-item"><strong>5YouWant</strong></router-link>
+         <router-link to="/" class="navbar-item">
+            <img src="logo.png" alt="" class=" mx-1">
+            <span class="has-text-grey">e</span><strong>5YouWant</strong>
+           </router-link>
         
         <!-- burger menu that shows only on touch devices -->
         <a class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbar-menu" @click="showMobileMenu = !showMobileMenu">
@@ -23,8 +26,8 @@
                 </div>
 
                 <div class="control">
-                  <button class="button is-success">
-                      <span class="icon">
+                  <button class="button is-link is-light">
+                      <span class="icon" style="color: gray">
                       <i class="fas fa-search"></i>
                       </span>
                   </button>
@@ -44,7 +47,7 @@
 
               <router-link to="/login" class="button is-white">Log in</router-link>
               
-              <router-link to="/cart" class="button is-success">
+              <router-link to="/cart" class="button is-success is-light">
                 <span class="icon"><i class="fas fa-shopping-cart"></i></span>
                 <span>Cart ({{ cartTotalLen }})</span>
               </router-link>
