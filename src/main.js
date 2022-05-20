@@ -1,5 +1,8 @@
 import { createApp } from 'vue'
 import App from './App.vue'
+
+require('@/assets/main.scss');
+
 import router from './routers'
 import store from './store'
 import axios from 'axios'
