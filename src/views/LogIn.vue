@@ -74,7 +74,7 @@
   padding: 4rem 4rem;
   margin-top: 3rem;
   color: white;
-  background: rgba(0, 0, 0, 0.8);
+  background: #363636;
   border-radius: 10px;
   box-shadow: 0 0.4px 0.4px rgba(128, 128, 128, 0.109),
     0 1px 1px rgba(128, 128, 128, 0.155),

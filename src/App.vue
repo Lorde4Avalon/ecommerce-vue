@@ -70,7 +70,7 @@
 </template>
 
 <script>
-import axios from 'axios'
+// import axios from 'axios'
 
 
 export default {
@@ -83,16 +83,16 @@ export default {
     }
   },
   methods: {
-     async getCartItem() {
-            await axios
-            .get("/carts")
-            .then(response => {
-                this.cart.items = response.data
-            })
-            .catch(error => {
-                console.log(error);
-            })
-        }
+    //  async getCartItem() {
+    //         await axios
+    //         .get("/carts")
+    //         .then(response => {
+    //             this.cart.items = response.data
+    //         })
+    //         .catch(error => {
+    //             console.log(error);
+    //         })
+    //     }
   },
   computed: {
     cartTotalLen() {
