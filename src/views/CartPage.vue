@@ -22,6 +22,7 @@
                 <h2 class="subtitle">Summary</h2>
 
                 Total: <strong>${{ cartTotalPrice.toFixed(2) }}</strong>
+                Len: <strong>{{cartTotalLen}}</strong>
 
                 <hr>
 
@@ -31,13 +32,9 @@
     </div>
 </template>
 
-<style>
-/* @import "../assets/style.CSS"; */
-</style>
-
 
 <script> 
-import axios from 'axios'
+// import axios from 'axios'
 import CartItem from '../components/CartItem.vue'
 
 export default {
@@ -54,7 +51,7 @@ export default {
         }
     },
     mounted() {
-        this.getCartItem()
+        this.cart = this.$store.state.cart
         document.title = "Cart | 5YouWant"
     },
     methods: {
@@ -69,29 +66,21 @@ export default {
                 }
             });
         },
-
-        async getCartItem() {
-            await axios
-            .get("/carts")
-            .then(response => {
-                this.cart.items = response.data
-            })
-            .catch(error => {
-                console.log(error);
-            })
+    },
+    watch: {
+        storeCart() {
+            this.cart = this.$store.state.cart
         }
     },
     computed: {
         cartTotalLen() {
           return this.cart.items.reduce((acc, curVal) => {
-              return acc += curVal.quantity
+              return acc += parseInt(curVal.quantity)
           }, 0)  
         },
-        // cartTotalPrice() {
-        //     return this.cart.items.reduce((acc, curVal) => {
-        //         return acc += curVal.price * curVal.quantity
-        //     },0)
-        // }
+        storeCart() {
+            return this.$store.state.cart
+        }
     }
 
 }

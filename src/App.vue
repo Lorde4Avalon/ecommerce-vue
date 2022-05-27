@@ -2,21 +2,22 @@
   <div id="wrapper">
     <nav class="navbar is-dark">
       <div class="navbar-brand">
-         <router-link to="/" class="navbar-item">
-            <img src="logo.png" alt="" class=" mx-1">
-            <span class="has-text-grey">e</span><strong>5YouWant</strong>
-           </router-link>
-        
+        <router-link to="/" class="navbar-item">
+          <img src="logo.png" alt="" class=" mx-1">
+          <span class="has-text-grey">e</span><strong>5YouWant</strong>
+        </router-link>
+
         <!-- burger menu that shows only on touch devices -->
-        <a class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbar-menu" @click="showMobileMenu = !showMobileMenu">
+        <a class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbar-menu"
+          @click="showMobileMenu = !showMobileMenu">
           <span aria-hidden="true"></span>
-          <span aria-hidden="true"></span>  
+          <span aria-hidden="true"></span>
           <span aria-hidden="true"></span>
         </a>
 
       </div>
 
-      <div class="navbar-menu" id="navbar-menu" v-bind:class="{'is-active': showMobileMenu }">
+      <div class="navbar-menu" id="navbar-menu" v-bind:class="{ 'is-active': showMobileMenu }">
         <div class="navbar-start">
           <div class="navbar-item">
             <form method="get" action="/search">
@@ -27,9 +28,9 @@
 
                 <div class="control">
                   <button class="button is-link is-light">
-                      <span class="icon" style="color: gray">
+                    <span class="icon" style="color: gray">
                       <i class="fas fa-search"></i>
-                      </span>
+                    </span>
                   </button>
                 </div>
               </div>
@@ -46,7 +47,7 @@
             <div class="buttons">
 
               <router-link to="/login" class="button is-white">Log in</router-link>
-              
+
               <router-link to="/cart" class="button is-success is-light">
                 <span class="icon"><i class="fas fa-shopping-cart"></i></span>
                 <span>Cart ({{ cartTotalLen }})</span>
@@ -60,7 +61,7 @@
     </nav>
 
     <section class="section">
-      <router-view/>
+      <router-view />
     </section>
 
     <footer class="footer">
@@ -70,8 +71,7 @@
 </template>
 
 <script>
-// import axios from 'axios'
-
+import axios from 'axios'
 
 export default {
   data() {
@@ -82,24 +82,31 @@ export default {
       }
     }
   },
+  beforeCreate() {
+    // this.$store.commit('initializeStore')
+  },
+  mounted() {
+    this.getCartItem()
+  },
   methods: {
-    //  async getCartItem() {
-    //         await axios
-    //         .get("/carts")
-    //         .then(response => {
-    //             this.cart.items = response.data
-    //         })
-    //         .catch(error => {
-    //             console.log(error);
-    //         })
-    //     }
+    async getCartItem() {
+      await axios
+        .get("/carts")
+        .then(response => {
+          this.cart.items = response.data
+        })
+        .catch(error => {
+          console.log(error);
+        })
+      this.$store.commit('initAddCart', this.cart)
+    }
   },
   computed: {
     cartTotalLen() {
-          return this.cart.items.reduce((acc, curVal) => {
-              return acc += curVal.quantity
-          }, 0)  
-        }
+      return this.cart.items.reduce((acc, curVal) => {
+        return acc += parseInt(curVal.quantity)
+      }, 0)
+    }
   }
 }
 </script>

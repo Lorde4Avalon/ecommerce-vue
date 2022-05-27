@@ -16,10 +16,10 @@
                 <h3 class="is-size-2 has-text-centered">Latest products</h3>
             </div>
 
-            <!-- <ProductBox
+            <ProductBox
                 v-for="product in lastProducts"
                 v-bind:key="product.id"
-                v-bind:product="product"/> -->
+                v-bind:product="product"/>
 
             <div class="column is-3"
                 v-for="product in lastProducts"
@@ -42,7 +42,7 @@
 
 <script>
 import axios from "axios";
-// import ProductBox from "@/components/ProductBox.vue";
+import ProductBox from "@/components/ProductBox.vue";
 
 export default {
     name: 'HomePage',
@@ -52,16 +52,16 @@ export default {
         }
     },
     components: {
-        // ProductBox,
+        ProductBox,
     },
     mounted() {
         this.getLatestProducts()
         document.title = 'Home | 5YouWant'
     },
     methods: {
-        getLatestProducts() {
-            axios
-                .get('/goods/list/')
+        async getLatestProducts() {
+            await axios
+                .get('/goods')
                 .then(response => {
                     this.latestProducts = response.data
                 })
