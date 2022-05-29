@@ -7,6 +7,6 @@ import router from './routers'
 import store from './store'
 import axios from 'axios'
 
-axios.defaults.baseURL = 'http://localhost:3000'
+axios.defaults.baseURL = 'http://localhost:8080'
 
 createApp(App).use(store).use(router, axios).mount('#app')

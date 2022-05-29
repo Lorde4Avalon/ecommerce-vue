@@ -34,14 +34,13 @@
 
 
 <script> 
-// import axios from 'axios'
 import CartItem from '../components/CartItem.vue'
 
 export default {
     name: 'CartPage',
     components: {
     CartItem
-},
+    },
     data() {
         return {
             cart: {

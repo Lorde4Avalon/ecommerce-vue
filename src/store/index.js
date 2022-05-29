@@ -5,17 +5,19 @@ export default createStore({
     cart: {
         items: [],
     },
-    isAuthenticated: false,
-    token: '',
+    userId: '',
     isLoading: false
   },
   mutations: {
    initAddCart(state, cart) {
       state.cart = cart
    },
-
+   setUserId(state, userId) {
+      state.userId = userId
+   }
   },
   actions: {
+    
   },
   modules: {
   }

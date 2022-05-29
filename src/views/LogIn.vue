@@ -1,15 +1,15 @@
 <template>
     <div class="page-login">
-        <form class="login-form" action="">
+        <form class="login-form" @submit.prevent="login">
             <h1>Login</h1>
             <div class="form-input-material">
-                <input type="text" name="username" id="username" placeholder=" " autocomplete="off"
-                    class="form-control-material" required />
+                <input type="text" name="name" id="name" placeholder=" " autocomplete="off"
+                    class="form-control-material" v-model="name" required/>
                 <label for="username">Username</label>
             </div>
             <div class="form-input-material">
                 <input type="password" name="password" id="password" placeholder=" " autocomplete="off"
-                    class="form-control-material" required />
+                    class="form-control-material" v-model="password" required />
                 <label for="password">Password</label>
             </div>
             <button type="submit" class="btn btn-primary btn-ghost">Login</button>
@@ -105,9 +105,47 @@
 </style> 
 
 <script>
+import axios from 'axios'
+
 export default {
+    data() {
+        return {
+            name: '',
+            password: '',
+            userId: '',
+        }
+    },
     mounted() {
         document.title = "Login | 5YouWant"
+    },
+    methods: {
+        async login() {
+            const { name, password } = this
+
+            // if (name.trim() === '' || password.trim() === '') {
+            //     // this.$toast.error('Please fill in all fields')
+            //     return
+            // }
+
+            await axios.get('/user/login', {
+                params: {
+                    name,
+                    password
+                }
+            }).then(res => {
+                if (res.status === 200) {
+                    this.userId = res.data
+                    this.$store.commit('setUserId', this.userId)
+                    console.log("userId:" + this.userId);
+                    this.$router.push('/')
+                } else {
+                  console.log("login fail, server error");
+                }
+            }).catch(err => {
+                console.log(err);
+            })
+
+        }
     }
 }
 </script>

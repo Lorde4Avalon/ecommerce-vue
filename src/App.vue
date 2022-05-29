@@ -82,9 +82,9 @@ export default {
       }
     }
   },
-  beforeCreate() {
-    // this.$store.commit('initializeStore')
-  },
+  // beforeCreate() {
+  //   // this.$store.commit('initializeStore')
+  // },
   mounted() {
     this.getCartItem()
   },
