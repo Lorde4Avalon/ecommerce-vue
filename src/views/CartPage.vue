@@ -9,7 +9,7 @@
                 <table class="table is-fullwidth" v-if="cartTotalLen">
                     <CartItem 
                     v-for="item in cart.items"
-                    v-bind:key="item.cartId"
+                    v-bind:key="item.cartid"
                     v-bind:initialItem="item"
                     v-on:removeItem="removeItem"
                     v-on:updateTotalPrice="updateTotalPrice"/>
@@ -55,13 +55,13 @@ export default {
     },
     methods: {
         removeItem(item) {
-            this.cart.items = this.cart.items.filter(i => i.cartId !== item.cartId)
+            this.cart.items = this.cart.items.filter(i => i.cardid !== item.cardid)
         },
         updateTotalPrice() {
             this.cartTotalPrice = 0
             this.cart.items.forEach(item => {
                 if (item.check) {
-                    this.cartTotalPrice += item.price * item.quantity
+                    this.cartTotalPrice += item.price * item.num
                 }
             });
         },
@@ -74,7 +74,7 @@ export default {
     computed: {
         cartTotalLen() {
           return this.cart.items.reduce((acc, curVal) => {
-              return acc += parseInt(curVal.quantity)
+              return acc += parseInt(curVal.num)
           }, 0)  
         },
         storeCart() {

@@ -127,7 +127,7 @@ export default {
             //     return
             // }
 
-            await axios.get('/user/login', {
+            await axios.get('/api/user/login', {
                 params: {
                     name,
                     password
@@ -136,7 +136,7 @@ export default {
                 if (res.status === 200) {
                     this.userId = res.data
                     this.$store.commit('setUserId', this.userId)
-                    console.log("userId:" + this.userId);
+                    console.log("userId:" + this.$store.state.userId);
                     this.$router.push('/')
                 } else {
                   console.log("login fail, server error");

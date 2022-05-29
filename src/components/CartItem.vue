@@ -1,17 +1,17 @@
 <template>
     <tr>
         <td><input class="check" type="checkbox" @click="checkItem()"></td>
-        <td><img :src=item.pthumbnail width="64"></td>
+        <td><img :src="'http://202.193.53.235:8080' + item.thumbnail" alt=""></td>
         <td>{{ item.name }}</td>
         <td>${{ item.price }}</td>
         <td>
-            <button @click="decrementQuantity(item)" style="padding: 0 8px">-</button>
-            {{ item.quantity }}
-            <button @click="incrementQuantity(item)" style="padding: 0 8px">+</button>
+            <button @click="decrementnum(item)" style="padding: 0 8px">-</button>
+            {{ item.num }}
+            <button @click="incrementnum(item)" style="padding: 0 8px">+</button>
         </td>
         <td>${{ getItemTotal(item).toFixed(2) }}</td>
         <td><button class="delete" @click="removeItem(item)"></button></td>
-    </tr> 
+    </tr>
 
 </template>
 
@@ -34,15 +34,15 @@ export default {
     methods: {
         getItemTotal(item) {
             this.updateCart()
-            return item.quantity * item.price
+            return item.num * item.price
         },
-        incrementQuantity(item) {
-            item.quantity++
+        incrementnum(item) {
+            item.num++
             this.updateCart()
         },
-        decrementQuantity(item) {
-            item.quantity--
-            if (item.quantity == 0) {
+        decrementnum(item) {
+            item.num--
+            if (item.num == 0) {
                 this.$emit('removeItem', item)
             }
             this.updateCart()

@@ -71,7 +71,6 @@
 </template>
 
 <script>
-import axios from 'axios'
 
 export default {
   data() {
@@ -79,33 +78,25 @@ export default {
       showMobileMenu: false,
       cart: {
         items: []
-      }
+      },
     }
   },
-  // beforeCreate() {
-  //   // this.$store.commit('initializeStore')
-  // },
   mounted() {
-    this.getCartItem()
+    this.cart = this.$store.state.cart
   },
-  methods: {
-    async getCartItem() {
-      await axios
-        .get("/carts")
-        .then(response => {
-          this.cart.items = response.data
-        })
-        .catch(error => {
-          console.log(error);
-        })
-      this.$store.commit('initAddCart', this.cart)
+  watch: {
+    storeCart() {
+      this.cart = this.$store.state.cart
     }
   },
   computed: {
     cartTotalLen() {
       return this.cart.items.reduce((acc, curVal) => {
-        return acc += parseInt(curVal.quantity)
+        return acc += parseInt(curVal.num)
       }, 0)
+    },
+    storeCart() {
+      return this.$store.state.cart
     }
   }
 }
