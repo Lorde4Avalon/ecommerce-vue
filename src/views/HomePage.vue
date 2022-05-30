@@ -15,29 +15,20 @@
             <div class="column is-12">
                 <h3 class="is-size-2 has-text-centered">Latest products</h3>
             </div>
-
-            <ProductBox v-for="product in lastProducts" v-bind:key="product.id" v-bind:product="product" />
-
-            <div class="column is-3" v-for="product in lastProducts" v-bind:key="product.id">
-
-                <div class="box">
-                    <figure class="image mb-4">
-                        <img v-bind:src="product.pthumbnail">
-                    </figure>
-
-                    <h3 class="is-size-4">{{ product.name }}</h3>
-                    <p class="is-size-6 has-text-grey">${{ product.price }}</p>
-
-
-                </div>
-            </div>
+            
+            <ProductBox 
+            v-for="product in latestProducts" 
+            v-bind:key="product.id" 
+            v-bind:product="product" />
+            
+            
         </div>
     </div>
 </template>
 
 <script>
 import axios from "axios";
-import ProductBox from "@/components/ProductBox.vue";
+import ProductBox from "../components/ProductBox.vue";
 
 export default {
     name: 'HomePage',
@@ -84,16 +75,6 @@ export default {
             this.$store.commit('initAddCart', this.cart)
         }
     },
-    // watch: {
-    //     storeUserId() {
-    //         this.userId = this.$store.state.userId
-    //     }
-    // },
-    // computed: {
-    //     storeUserId() {
-    //         return this.$store.state.userId
-    //     }
-    // }
 }
 </script>
 
