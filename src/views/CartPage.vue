@@ -9,7 +9,7 @@
                 <table class="table is-fullwidth" v-if="cartTotalLen">
                     <CartItem 
                     v-for="item in cart.items"
-                    v-bind:key="item.cartid"
+                    v-bind:key="item.cardid"
                     v-bind:initialItem="item"
                     v-on:removeItem="removeItem"
                     v-on:updateTotalPrice="updateTotalPrice"/>

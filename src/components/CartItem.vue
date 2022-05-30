@@ -1,7 +1,7 @@
 <template>
     <tr>
         <td><input class="check" type="checkbox" @click="checkItem()"></td>
-        <td><img :src="'http://202.193.53.235:8080' + item.thumbnail" alt=""></td>
+        <td><img :src="'http://202.193.53.235:8080/' + item.thumbnail" alt="cardImg" style="width:6rem"></td>
         <td>{{ item.name }}</td>
         <td>${{ item.price }}</td>
         <td>
