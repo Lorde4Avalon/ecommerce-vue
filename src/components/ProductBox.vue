@@ -5,10 +5,13 @@
                 <img :src="'http://202.193.53.235:8080/' + good.pthumbnail">
             </figure>
 
-            <h3 class="is-size-4">{{ good.name }}</h3>
+            <h3 class="is-size-5">{{ good.name }}</h3>
             <p class="is-size-6 has-text-grey">${{ good.price1 }}</p>
 
-            <!-- <router-link v-bind:to="good.get_absolute_url" class="button is-dark mt-4">View details</router-link> -->
+            <div class="box-operator">
+                <router-link to="/" class="button is-dark mx-3 mt-4 ">View details</router-link>
+                <button class="button is-success is-rounded my-4 mx-3 ">Add to cart</button>
+            </div>
         </div>
     </div>
 </template>
@@ -32,5 +35,13 @@ export default {
     margin-top: -1.25rem;
     margin-left: -1.25rem;
     margin-right: -1.25rem;
+} 
+
+.box-operator {
+    margin-left: -1.25rem;
+    margin-right: -1.25rem;
+}
+.box-operator .button {
+    /* padding: 0 8px; */
 }
 </style>
