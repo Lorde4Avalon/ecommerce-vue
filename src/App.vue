@@ -40,13 +40,39 @@
 
 
         <div class="navbar-end">
-          <router-link to="/laptop" class="navbar-item">Laptop</router-link>
-          <router-link to="/pc" class="navbar-item">PC</router-link>
+          <!-- <router-link to="/laptop" class="navbar-item">Laptop</router-link>
+          <router-link to="/pc" class="navbar-item">PC</router-link> -->
 
           <div class="navbar-item">
             <div class="buttons">
 
-              <router-link to="/login" class="button is-white">Log in</router-link>
+              <router-link to="/login" class="button is-white" v-if="!user.userId">Log in</router-link>
+
+              <div class="user" v-else>
+                <!-- show username and logout -->
+                <div class="dropdown is-right mx-3">
+                  <div class="dropdown-trigger">
+                    <button class="button is-white" aria-haspopup="true" aria-controls="dropdown-menu">
+                      <span class="icon">
+                        <i class="fas fa-user"></i>
+                      </span>
+                      <span>{{ user.name }}</span>
+                      <span class="icon is-small">
+                        <i class="fas fa-angle-down" aria-hidden="true"></i>
+                      </span>
+                    </button>
+                  </div>
+
+                  <div class="dropdown-menu" id="dropdown-menu" role="menu">
+                    <div class="dropdown-content">
+                      <router-link to="/logout" class="dropdown-item">
+                        <i class="fas fa-sign-out-alt"></i>
+                        Logout
+                      </router-link>
+                    </div>
+                  </div>
+                </div>
+              </div>
 
               <router-link to="/cart" class="button is-success is-light">
                 <span class="icon"><i class="fas fa-shopping-cart"></i></span>
@@ -70,6 +96,20 @@
   </div>
 </template>
 
+<style lang="scss">
+  .dropdown-trigger {
+    display: flex;
+    align-items: center;
+  }
+  
+  .dropdown-menu {
+    border-radius: 0;
+    box-shadow: 0 2px 3px rgba(10, 10, 10, 0.1), 0 0 0 1px rgba(10, 10, 10, 0.1);
+    padding-bottom: 4px;
+    visibility: hidden;
+  }
+</style>
+
 <script>
 
 export default {
@@ -79,14 +119,26 @@ export default {
       cart: {
         items: []
       },
+      user: this.$store.state.user,
     }
   },
   mounted() {
     this.cart = this.$store.state.cart
   },
+  methods: {
+    logout() {
+      // 
+    },
+    triggeDropdown() {
+      document.querySelector('.dropdown-menu').style.visibility = 'visible'
+    }
+  },
   watch: {
     storeCart() {
       this.cart = this.$store.state.cart
+    },
+    storeUser() {
+      this.user = this.$store.state.user
     }
   },
   computed: {
@@ -97,6 +149,9 @@ export default {
     },
     storeCart() {
       return this.$store.state.cart
+    },
+    storeUser() {
+      return this.$store.state.user
     }
   }
 }

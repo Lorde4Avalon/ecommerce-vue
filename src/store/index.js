@@ -5,7 +5,10 @@ export default createStore({
     cart: {
         items: [],
     },
-    userId: '',
+    user: {
+        name: '',
+        userId: '',
+    },
     isLoading: false
   },
   mutations: {
@@ -13,7 +16,10 @@ export default createStore({
       state.cart = cart
    },
    setUserId(state, userId) {
-      state.userId = userId
+      state.user.userId = userId
+   },
+   setUserName(state, username) {
+      state.user.name = username
    }
   },
   actions: {

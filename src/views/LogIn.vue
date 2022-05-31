@@ -136,6 +136,7 @@ export default {
                 if (res.status === 200) {
                     this.userId = res.data
                     this.$store.commit('setUserId', this.userId)
+                    this.$store.commit('setUserName', name)
                     console.log("userId:" + this.$store.state.userId);
                     this.$router.push('/')
                 } else {

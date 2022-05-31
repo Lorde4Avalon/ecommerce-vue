@@ -63,7 +63,7 @@ export default {
             await axios
                 .get("/api/cart/listByUser", {
                     params: {
-                        userId: this.$store.state.userId
+                        userId: this.$store.state.user.userId
                     }
                 })
                 .then(response => {
