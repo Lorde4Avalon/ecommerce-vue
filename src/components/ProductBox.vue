@@ -10,7 +10,7 @@
 
             <div class="box-operator">
                 <router-link to="/" class="button is-dark mx-3 mt-4 ">View details</router-link>
-                <button class="button is-success is-rounded my-4 mx-3 ">Add to cart</button>
+                <button class="button is-success is-rounded my-4 mx-3 " @click="addToCart(good)">Add to cart</button>
             </div>
         </div>
     </div>
@@ -25,6 +25,11 @@ export default {
     data() {
         return {
             good: this.product
+        }
+    },
+    methods: {
+        addToCart(good) {
+            this.$emit('addToCart', good)
         }
     }
 }

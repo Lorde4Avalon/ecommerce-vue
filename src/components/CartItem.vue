@@ -10,7 +10,7 @@
             <button @click="incrementnum(item)" style="padding: 0 8px">+</button>
         </td>
         <td>${{ getItemTotal(item).toFixed(2) }}</td>
-        <td><button class="delete" @click="removeItem(item)"></button></td>
+        <td><button class="delete" @click="removeCartItem(item)"></button></td>
     </tr>
 
 </template>
@@ -43,7 +43,7 @@ export default {
         decrementnum(item) {
             item.num--
             if (item.num == 0) {
-                this.$emit('removeItem', item)
+                this.$emit('removeCartItem', item)
             }
             this.updateCart()
         },
@@ -54,6 +54,9 @@ export default {
         removeItem(item) {
             this.$emit('removeItem', item)
             this.updateCart()
+        },
+        removeCartItem(item) {
+            this.$emit('removeCartItem', item)
         },
         checkItem() {
             this.item["check"] = !this.item["check"]

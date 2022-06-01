@@ -11,7 +11,7 @@
                     v-for="item in cart.items"
                     v-bind:key="item.cardid"
                     v-bind:initialItem="item"
-                    v-on:removeItem="removeItem"
+                    v-on:removeCartItem="removeCartItem"
                     v-on:updateTotalPrice="updateTotalPrice"/>
                 </table>
 
@@ -34,6 +34,7 @@
 
 
 <script> 
+import axios from 'axios'
 import CartItem from '../components/CartItem.vue'
 
 export default {
@@ -65,6 +66,22 @@ export default {
                 }
             });
         },
+        async removeCartItem(item) {
+            await axios
+                    .get('/api/cart/deleteById', {
+                        params: {
+                            userId: this.$store.state.user.userId,
+                            cartId: item.cardid
+                        }
+                    })
+                    .then(response => {
+                        this.cart.items = response.data
+                    })
+                    .catch(err => {
+                        console.log(err.message);
+                    })
+                this.$store.commit('initAddCart', this.cart)
+        }
     },
     watch: {
         storeCart() {

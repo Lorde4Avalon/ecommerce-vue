@@ -63,7 +63,13 @@
                   </div>
                   <div class="dropdown-menu" id="dropdown-menu" role="menu">
                     <div class="dropdown-content">
-                      <a href="/logout" class="dropdown-item">
+                      <a class="dropdown-item">
+                        <span class="icon">
+                          <i class="fas fa-money-bill"></i>
+                        </span>
+                        <span>Bills</span>
+                      </a>
+                      <a class="dropdown-item" @click="logout()">
                         <span class="icon">
                           <i class="fas fa-sign-out-alt"></i>
                         </span>
@@ -128,6 +134,8 @@ export default {
   methods: {
     logout() {
       // 
+      this.$store.user = '';
+      this.user = '';
     },
     triggeDropdown() {
       document.querySelector('.dropdown-menu').style.visibility = 'visible'

@@ -15,13 +15,11 @@
             <div class="column is-12">
                 <h3 class="is-size-2 has-text-centered">Latest products</h3>
             </div>
-            
-            <ProductBox 
-            v-for="product in latestProducts" 
-            v-bind:key="product.id" 
-            v-bind:product="product" />
-            
-            
+
+            <ProductBox v-for="product in latestProducts" v-bind:key="product.id" v-bind:product="product"
+                v-on:addToCart="addToCart" />
+
+
         </div>
     </div>
 </template>
@@ -73,7 +71,25 @@ export default {
                     console.log(error);
                 })
             this.$store.commit('initAddCart', this.cart)
-        }
+        },
+        async addToCart(product) {
+            await axios
+                .get("/api/cart/add", {
+                    params: {
+                        userId: this.$store.state.user.userId,
+                        goodsId: product.id,
+                        num: 1,
+                        price: product.price1,
+                    }
+                })
+                .then(response => {
+                    this.cart.items = response.data
+                })
+                .catch(error => {
+                    console.log(error);
+                })
+            this.$store.commit('initAddCart', this.cart)
+        },
     },
 }
 </script>
