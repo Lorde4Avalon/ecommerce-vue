@@ -49,8 +49,7 @@
               <router-link to="/login" class="button is-white" v-if="!user.userId">Log in</router-link>
 
               <div class="user" v-else>
-                <!-- show username and logout -->
-                <div class="dropdown is-right mx-3">
+                <div class="dropdown is-right mx-3 is-active">
                   <div class="dropdown-trigger">
                     <button class="button is-white" aria-haspopup="true" aria-controls="dropdown-menu">
                       <span class="icon">
@@ -62,15 +61,17 @@
                       </span>
                     </button>
                   </div>
-
                   <div class="dropdown-menu" id="dropdown-menu" role="menu">
                     <div class="dropdown-content">
-                      <router-link to="/logout" class="dropdown-item">
-                        <i class="fas fa-sign-out-alt"></i>
-                        Logout
-                      </router-link>
+                      <a href="/logout" class="dropdown-item">
+                        <span class="icon">
+                          <i class="fas fa-sign-out-alt"></i>
+                        </span>
+                        <span>Log out</span>
+                      </a>
                     </div>
                   </div>
+                  
                 </div>
               </div>
 
@@ -106,7 +107,6 @@
     border-radius: 0;
     box-shadow: 0 2px 3px rgba(10, 10, 10, 0.1), 0 0 0 1px rgba(10, 10, 10, 0.1);
     padding-bottom: 4px;
-    visibility: hidden;
   }
 </style>
 
