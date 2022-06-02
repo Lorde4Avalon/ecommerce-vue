@@ -117,6 +117,7 @@
 </style>
 
 <script>
+import axios from 'axios';
 
 export default {
   data() {
@@ -134,12 +135,25 @@ export default {
   methods: {
     logout() {
       // 
-      this.$store.user = '';
-      this.user = '';
+      this.$store.state.user.userId = '';
+      this.getCartItem()
+      console.log(this.$store.state.user.userId);
     },
-    triggeDropdown() {
-      document.querySelector('.dropdown-menu').style.visibility = 'visible'
-    }
+    async getCartItem() {
+            await axios
+                .get("/api/cart/listByUser", {
+                    params: {
+                        userId: this.$store.state.user.userId
+                    }
+                })
+                .then(response => {
+                    this.cart.items = response.data
+                })
+                .catch(error => {
+                    console.log(error);
+                })
+            this.$store.commit('initAddCart', this.cart)
+        },
   },
   watch: {
     storeCart() {

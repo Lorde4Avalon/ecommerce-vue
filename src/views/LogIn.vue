@@ -128,7 +128,7 @@ export default {
                     password
                 }
             }).then(res => {
-                if (res.status === 200) {
+                if (res.data != 'invalid') {
                     this.userId = res.data
                     this.$store.commit('setUserId', this.userId)
                     this.$store.commit('setUserName', name)
