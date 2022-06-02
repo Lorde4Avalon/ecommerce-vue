@@ -1,5 +1,5 @@
 <template>
-    <div class="column is-3">
+    <div class="column is-3 is-size-3">
         <div class="box">
             <figure class="image mb-4">
                 <img :src="'http://202.193.53.235:8080/' + good.pthumbnail">

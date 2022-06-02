@@ -1,7 +1,7 @@
 <template>
     <div class="page-login">
         <form class="login-form" @submit.prevent="login">
-            <h1>Login</h1>
+            <h1>Sign up</h1>
             <div class="form-input-material">
                 <input type="text" name="name" id="name" placeholder=" " autocomplete="off"
                     class="form-control-material" v-model="name" required/>
@@ -12,8 +12,8 @@
                     class="form-control-material" v-model="password" required />
                 <label for="password">Password</label>
             </div>
-            <button type="submit" class="btn btn-primary btn-ghost">Login</button>
-            <p>Don't have accout now?<router-link to="/signup">Sign Up</router-link></p>
+            <button type="submit" class="btn btn-primary btn-ghost">Sign up</button>
+            <p>Already have accout?<router-link to="/login">Log in</router-link></p>
         </form>
     </div>
 </template>
@@ -116,26 +116,22 @@ export default {
         }
     },
     mounted() {
-        document.title = "Login | 5YouWant"
+        document.title = "Sign up | 5YouWant"
     },
     methods: {
         async login() {
             const { name, password } = this
 
-            await axios.get('/api/user/login', {
+            await axios.get('/api/user/register', {
                 params: {
                     name,
                     password
                 }
             }).then(res => {
                 if (res.status === 200) {
-                    this.userId = res.data
-                    this.$store.commit('setUserId', this.userId)
-                    this.$store.commit('setUserName', name)
-                    console.log("userId:" + this.$store.state.userId);
-                    this.$router.push('/')
+                    this.$router.push('/login')
                 } else {
-                  console.log("login fail, server error");
+                  console.log("sign up fail, server error");
                 }
             }).catch(err => {
                 console.log(err);

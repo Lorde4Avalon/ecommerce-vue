@@ -63,12 +63,12 @@
                   </div>
                   <div class="dropdown-menu" id="dropdown-menu" role="menu">
                     <div class="dropdown-content">
-                      <a class="dropdown-item">
+                      <router-link class="dropdown-item" to="/order">
                         <span class="icon">
                           <i class="fas fa-money-bill"></i>
                         </span>
-                        <span>Bills</span>
-                      </a>
+                        <span>Orders</span>
+                      </router-link>
                       <a class="dropdown-item" @click="logout()">
                         <span class="icon">
                           <i class="fas fa-sign-out-alt"></i>

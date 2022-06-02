@@ -15,9 +15,6 @@
 
 </template>
 
-<!-- <style>
-@import "../assets/style.CSS";
-</style> -->
 
 
 <script>

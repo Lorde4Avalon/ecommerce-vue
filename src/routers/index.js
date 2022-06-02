@@ -4,6 +4,8 @@ import Home from '../views/HomePage.vue'
 
 import LogIn from '../views/LogIn.vue'
 import Cart from '../views/CartPage.vue'
+import Order from '../views/OrderPage.vue'
+import SignUp from '@/views/SignUp.vue'
 
 const routers = [
     {
@@ -17,9 +19,19 @@ const routers = [
         component: LogIn
     },
     {
+        path: '/signup',
+        name: 'SignUp',
+        component: SignUp
+    },
+    {
         path: '/cart',
         name: 'Cart',
         component: Cart
+    },
+    {
+        path: '/order',
+        name: 'Order',
+        component: Order
     }
 ]
 
