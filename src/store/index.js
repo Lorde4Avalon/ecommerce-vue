@@ -9,6 +9,7 @@ export default createStore({
         name: '',
         userId: '',
     },
+    order: [],
     isLoading: false
   },
   mutations: {

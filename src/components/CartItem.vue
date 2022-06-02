@@ -58,6 +58,7 @@ export default {
         checkItem() {
             this.item["check"] = !this.item["check"]
             this.$emit('updateTotalPrice')
+            this.$emit('conbindCartList')
         }
     },
 }

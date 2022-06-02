@@ -12,7 +12,8 @@
                     v-bind:key="item.cardid"
                     v-bind:initialItem="item"
                     v-on:removeCartItem="removeCartItem"
-                    v-on:updateTotalPrice="updateTotalPrice"/>
+                    v-on:updateTotalPrice="updateTotalPrice"
+                    v-on:conbindCartList="conbindCartList"/>
                 </table>
 
                 <p v-else>You don't have any in Cart. Try to get something new</p>
@@ -26,7 +27,7 @@
 
                 <hr>
 
-                <router-link to="/cart/checkout" class="button is-dark">Purchase</router-link>
+                <button class="button is-dark" @click="generateOrder()">Purchase</button>
             </div>
         </div>
     </div>
@@ -47,7 +48,8 @@ export default {
             cart: {
                 items: []
             },
-            cartTotalPrice: 0
+            cartTotalPrice: 0,
+            cartList: []
         }
     },
     mounted() {
@@ -58,13 +60,21 @@ export default {
         removeItem(item) {
             this.cart.items = this.cart.items.filter(i => i.cardid !== item.cardid)
         },
-        updateTotalPrice() {
-            this.cartTotalPrice = 0
+        // updateTotalPrice() {
+        //     this.cartTotalPrice = 0
+        //     this.cart.items.forEach(item => {
+        //         if (item.check) {
+        //             this.cartTotalPrice += item.price * item.num
+        //         }
+        //     });
+        // },
+        conbindCartList() {
             this.cart.items.forEach(item => {
                 if (item.check) {
-                    this.cartTotalPrice += item.price * item.num
+                    if (!this.cartList.includes(item.cardid)) this.cartList.push(item.cardid) 
+                    this.cartList.join(',')
                 }
-            });
+            })
         },
         async removeCartItem(item) {
             await axios
@@ -81,6 +91,21 @@ export default {
                         console.log(err.message);
                     })
                 this.$store.commit('initAddCart', this.cart)
+        },
+        async generateOrder() {
+            await axios
+                .get('/api/order/addCastOrder', {
+                    params: {
+                        userId: this.$store.state.user.userId,
+                        cartList: this.cartList.toString()
+                    }
+                })
+                .then(res => {
+                    console.log(res);
+                })
+                .catch(err => {
+                    console.log(err.message);
+                })
         }
     },
     watch: {
@@ -96,7 +121,7 @@ export default {
         },
         storeCart() {
             return this.$store.state.cart
-        }
+        },
     }
 
 }
