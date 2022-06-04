@@ -52,6 +52,7 @@ export default {
                 .get('/api/goods/list')
                 .then(response => {
                     this.latestProducts = response.data
+                    this.$store.state.goods = response.data
                 })
                 .catch(error => {
                     console.log(error)

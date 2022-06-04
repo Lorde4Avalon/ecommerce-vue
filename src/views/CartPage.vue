@@ -53,21 +53,21 @@ export default {
         }
     },
     mounted() {
-        this.cart = this.$store.state.cart
+        this.getCartItem()
         document.title = "Cart | 5YouWant"
     },
     methods: {
         removeItem(item) {
             this.cart.items = this.cart.items.filter(i => i.cardid !== item.cardid)
         },
-        // updateTotalPrice() {
-        //     this.cartTotalPrice = 0
-        //     this.cart.items.forEach(item => {
-        //         if (item.check) {
-        //             this.cartTotalPrice += item.price * item.num
-        //         }
-        //     });
-        // },
+        updateTotalPrice() {
+            this.cartTotalPrice = 0
+            this.cart.items.forEach(item => {
+                if (item.check) {
+                    this.cartTotalPrice += item.price * item.num
+                }
+            });
+        },
         conbindCartList() {
             this.cart.items.forEach(item => {
                 if (item.check) {
@@ -75,6 +75,21 @@ export default {
                     this.cartList.join(',')
                 }
             })
+        },
+        async getCartItem() {
+            await axios
+                .get("/api/cart/listByUser", {
+                    params: {
+                        userId: this.$store.state.user.userId
+                    }
+                })
+                .then(response => {
+                    this.cart.items = response.data
+                })
+                .catch(error => {
+                    console.log(error);
+                })
+            this.$store.commit('initAddCart', this.cart)
         },
         async removeCartItem(item) {
             await axios
@@ -93,6 +108,11 @@ export default {
                 this.$store.commit('initAddCart', this.cart)
         },
         async generateOrder() {
+            if (!this.cartList.length) {
+                console.log("you have to select some items");
+                return
+            }
+
             await axios
                 .get('/api/order/addCastOrder', {
                     params: {
@@ -106,6 +126,9 @@ export default {
                 .catch(err => {
                     console.log(err.message);
                 })
+                .finally(
+                    this.$router.push('/')
+                )
         }
     },
     watch: {

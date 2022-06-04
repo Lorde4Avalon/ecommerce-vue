@@ -5,23 +5,16 @@
         </div>
 
         <div class="column is-12 box">
-            <table class="table is-fullwidth">
-                <OrderItem 
-                v-for="order in orders"
-                v-bind:key="order.id"/>
-
-
-            </table>
+            <div class="is-fullwidth">
+                <OrderItem v-for="order in orders" v-bind:key="order.id" v-bind:initialOrder="order" />
+            </div>
         </div>
 
     </div>
 </template>
 
 <style lang="scss">
-    .order-header tr,td {
-        font-weight: bold;
-        font-size: large;
-    }
+
 </style>
 
 <script>
@@ -31,8 +24,8 @@ import OrderItem from '@/components/OrderItem.vue'
 export default {
     name: 'orderPage',
     components: {
-    OrderItem,
-},
+        OrderItem,
+    },
     data() {
         return {
             orders: []
