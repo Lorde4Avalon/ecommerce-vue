@@ -134,7 +134,6 @@ export default {
   },
   methods: {
     logout() {
-      // 
       this.$store.state.user.userId = '';
       this.getCartItem()
       console.log(this.$store.state.user.userId);

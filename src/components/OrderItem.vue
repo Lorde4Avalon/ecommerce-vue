@@ -1,11 +1,11 @@
 <template>
     <div class="order-item">
         <div class="order-header">
-            <span>OrderId</span>
+            <span>OrderDetail</span>
             <span>OrderGoods</span>
             <span>Data</span>
             <span>goodsNums</span>
-            <span>Total</span>
+            <span>Total:${{orderTotal}}</span>
         </div>
 
         <div class="order-detail" v-for="item in orderDetails" v-bind:key="item.id">
@@ -13,7 +13,7 @@
             <span>{{ item.goodsName }}</span>
             <span>{{ order.orderTime }}</span>
             <span>{{ item.goodsNums }}</span>
-            <span>{{ item.goodsPrice }}</span>
+            <span>${{ item.goodsPrice }}</span>
         </div>
     </div>
 </template>
@@ -75,6 +75,13 @@ export default {
         }
 
         console.log(this.orderDetails);
+    },
+    computed: {
+        orderTotal() {
+            return this.orderDetails.reduce((acc, curVal) => {
+                return acc += curVal.goodsPrice * curVal.goodsNums
+            }, 0)
+        }
     }
 }
 </script>
