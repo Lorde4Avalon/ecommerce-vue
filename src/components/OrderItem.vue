@@ -1,7 +1,7 @@
 <template>
     <div class="order-item">
         <div class="order-header">
-            <span>OrderDetail</span>
+            <span>OrderDetails</span>
             <span>OrderGoods</span>
             <span>Data</span>
             <span>goodsNums</span>
@@ -68,13 +68,24 @@ export default {
         for (let i = 0; i < this.orderDetails.length; i++) {
             let numsStrs = this.orderDetails[i].nums.split(',')
 
-            this.orderDetails[i].thumbnail = this.$store.state.goods[i].pthumbnail
+            this.orderDetails[i].thumbnail = this.getImgByGoodsId(this.orderDetails[i].goodsId)
             this.orderDetails[i].goodsNums = numsStrs[0]
             let price = numsStrs[1].trim().split('=')
             this.orderDetails[i].goodsPrice = price[1]
         }
 
-        console.log(this.orderDetails);
+    },
+    methods: {
+        getImgByGoodsId(goodsId) {
+            let goods = this.$store.state.goods 
+            let img = ''
+            goods.forEach(item => {
+                if (item.id == goodsId) {
+                    img = item.pthumbnail
+                }
+            })
+            return img
+        },
     },
     computed: {
         orderTotal() {
