@@ -39,7 +39,7 @@ export default {
             await axios
                 .get('/api/order/listByUser', {
                     params: {
-                        userId: this.$store.state.user.userId
+                        userId: this.$store.getters.getUserInfo.state.user.userId
                     }
                 })
                 .then(respone => {

@@ -1,6 +1,6 @@
 <template>
     <div class="page-login">
-        <form class="login-form" @submit.prevent="login">
+        <form class="login-form" @submit.prevent="signup">
             <h1>Sign up</h1>
             <div class="form-input-material">
                 <input type="text" name="name" id="name" placeholder=" " autocomplete="off"
@@ -119,7 +119,7 @@ export default {
         document.title = "Sign up | 5YouWant"
     },
     methods: {
-        async login() {
+        async signup() {
             const { name, password } = this
 
             await axios.get('/api/user/register', {
@@ -131,6 +131,7 @@ export default {
                 if (res.status === 200) {
                     this.$router.push('/login')
                 } else {
+                  alert('Username already exists')
                   console.log("sign up fail, server error");
                 }
             }).catch(err => {

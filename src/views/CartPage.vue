@@ -23,7 +23,7 @@
                 <h2 class="subtitle">Summary</h2>
 
                 Total: <strong>${{ cartTotalPrice.toFixed(2) }}</strong>
-                Len: <strong>{{cartTotalLen}}</strong>
+                <!-- Len: <strong>{{cartTotalLen}}</strong> -->
 
                 <hr>
 
@@ -80,7 +80,7 @@ export default {
             await axios
                 .get("/api/cart/listByUser", {
                     params: {
-                        userId: this.$store.state.user.userId
+                        userId: this.$store.getters.getUserInfo.state.user.userId
                     }
                 })
                 .then(response => {
@@ -95,7 +95,7 @@ export default {
             await axios
                     .get('/api/cart/deleteById', {
                         params: {
-                            userId: this.$store.state.user.userId,
+                            userId: this.$store.getters.getUserInfo.state.user.userId,
                             cartId: item.cardid
                         }
                     })
@@ -116,12 +116,9 @@ export default {
             await axios
                 .get('/api/order/addCastOrder', {
                     params: {
-                        userId: this.$store.state.user.userId,
+                        userId: this.$store.getters.getUserInfo.state.user.userId,
                         cartList: this.cartList.toString()
                     }
-                })
-                .then(res => {
-                    console.log(res);
                 })
                 .catch(err => {
                     console.log(err.message);

@@ -77,7 +77,7 @@
                       </a>
                     </div>
                   </div>
-                  
+
                 </div>
               </div>
 
@@ -104,16 +104,16 @@
 </template>
 
 <style lang="scss">
-  .dropdown-trigger {
-    display: flex;
-    align-items: center;
-  }
-  
-  .dropdown-menu {
-    border-radius: 0;
-    box-shadow: 0 2px 3px rgba(10, 10, 10, 0.1), 0 0 0 1px rgba(10, 10, 10, 0.1);
-    padding-bottom: 4px;
-  }
+.dropdown-trigger {
+  display: flex;
+  align-items: center;
+}
+
+.dropdown-menu {
+  border-radius: 0;
+  box-shadow: 0 2px 3px rgba(10, 10, 10, 0.1), 0 0 0 1px rgba(10, 10, 10, 0.1);
+  padding-bottom: 4px;
+}
 </style>
 
 <script>
@@ -126,40 +126,42 @@ export default {
       cart: {
         items: []
       },
-      user: this.$store.state.user,
+      user: this.$store.getters.getUserInfo.state.user,
     }
   },
   mounted() {
     this.cart = this.$store.state.cart
+    // this.getCartItem()
   },
   methods: {
     logout() {
-      this.$store.state.user.userId = '';
+      this.$store.dispatch('removeUserInfo');
+      this.user = this.$store.getters.getUserInfo.state.user;
       this.getCartItem()
-      console.log(this.$store.state.user.userId);
+      this.$router.push('/login');
     },
     async getCartItem() {
-            await axios
-                .get("/api/cart/listByUser", {
-                    params: {
-                        userId: this.$store.state.user.userId
-                    }
-                })
-                .then(response => {
-                    this.cart.items = response.data
-                })
-                .catch(error => {
-                    console.log(error);
-                })
-            this.$store.commit('initAddCart', this.cart)
-        },
+      await axios
+        .get("/api/cart/listByUser", {
+          params: {
+            userId: this.user.userId
+          }
+        })
+        .then(response => {
+          this.cart.items = response.data
+        })
+        .catch(error => {
+          console.log(error);
+        })
+      this.$store.commit('initAddCart', this.cart)
+    },
   },
   watch: {
     storeCart() {
       this.cart = this.$store.state.cart
     },
     storeUser() {
-      this.user = this.$store.state.user
+      this.user = this.$store.getters.getUserInfo.state.user
     }
   },
   computed: {
@@ -172,7 +174,7 @@ export default {
       return this.$store.state.cart
     },
     storeUser() {
-      return this.$store.state.user
+      return this.$store.getters.getUserInfo.state.user
     }
   }
 }

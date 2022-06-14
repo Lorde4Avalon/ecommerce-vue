@@ -130,11 +130,19 @@ export default {
             }).then(res => {
                 if (res.data != 'invalid') {
                     this.userId = res.data
-                    this.$store.commit('setUserId', this.userId)
-                    this.$store.commit('setUserName', name)
-                    console.log("userId:" + this.$store.state.userId);
-                    this.$router.push('/')
+                    // this.$store.commit('setUserId', this.userId)
+                    // this.$store.commit('setUserName', name)
+                    const userState = this.$store.state
+                    userState.user = {
+                        userId: this.userId,
+                        name: this.name
+                    }
+                    this.$store.dispatch("saveUserInfo", userState)
+                    // this.$router.push('/')
+                    // reload home page
+                    window.location.assign('/')
                 } else {
+                  alert('Username or password is incorrect')
                   console.log("login fail, server error");
                 }
             }).catch(err => {

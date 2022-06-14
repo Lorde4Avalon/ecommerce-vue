@@ -62,7 +62,7 @@ export default {
             await axios
                 .get("/api/cart/listByUser", {
                     params: {
-                        userId: this.$store.state.user.userId
+                        userId: this.$store.getters.getUserInfo.state.user.userId
                     }
                 })
                 .then(response => {
@@ -74,10 +74,19 @@ export default {
             this.$store.commit('initAddCart', this.cart)
         },
         async addToCart(product) {
+            // var goodsNums = 0
+            // this.cart.items.forEach(item => {
+            //     if (item.goodsId === product.id) {
+            //         goodsNums += parseInt(item.num)
+            //         goodsNums++
+            //     }
+            // })
+
+            // console.log(goodsNums);
             await axios
                 .get("/api/cart/add", {
                     params: {
-                        userId: this.$store.state.user.userId,
+                        userId: this.$store.getters.getUserInfo.state.user.userId,
                         goodsId: product.id,
                         num: 1,
                         price: product.price1,
