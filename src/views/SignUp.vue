@@ -128,7 +128,7 @@ export default {
                     password
                 }
             }).then(res => {
-                if (res.status === 200) {
+                if (res.data != 'isexist') {
                     this.$router.push('/login')
                 } else {
                   alert('Username already exists')
