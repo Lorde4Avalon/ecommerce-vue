@@ -126,7 +126,7 @@ export default {
       cart: {
         items: []
       },
-      user: this.$store.getters.getUserInfo.state.user,
+      user: this.$store.getters.getUserInfo?.state.user ?? {},
     }
   },
   mounted() {
@@ -136,7 +136,7 @@ export default {
   methods: {
     logout() {
       this.$store.dispatch('removeUserInfo');
-      this.user = this.$store.getters.getUserInfo.state.user;
+      this.user = this.$store.getters.getUserInfo.state.user ?? {};
       this.getCartItem()
       this.$router.push('/login');
     },
@@ -174,7 +174,7 @@ export default {
       return this.$store.state.cart
     },
     storeUser() {
-      return this.$store.getters.getUserInfo.state.user
+      return this.$store.getters.getUserInfo?.state.user ?? {}
     }
   }
 }
